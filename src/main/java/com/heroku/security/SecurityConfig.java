@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Value(value = "${auth0.domain}")
     private String issuer;
 
-//    @Value(value = "${auth0.securedRoute}")
+    @Value(value = "${auth0.secured.route}")
     private String securedRoute;
 
     //Required for Spring Security and Auth0 onfiguration
