@@ -22,16 +22,16 @@ import com.auth0.spring.security.auth0.Auth0AuthenticationProvider;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     final Logger LOGGER = LoggerFactory.getLogger(SecurityConfig.class);
 
-    @Value(value = "${auth0.clientId}")
+    @Value(value = "${auth0.client.id}")
     private String clientId;
 
-    @Value(value = "${auth0.clientSecret}")
+    @Value(value = "${auth0.client.secret}")
     private String clientSecret;
 
     @Value(value = "${auth0.domain}")
     private String issuer;
 
-    @Value(value = "${auth0.securedRoute}")
+//    @Value(value = "${auth0.securedRoute}")
     private String securedRoute;
 
     //Required for Spring Security and Auth0 onfiguration
@@ -54,7 +54,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         authenticationProvider.setClientId(clientId);
         authenticationProvider.setClientSecret(clientSecret);
         authenticationProvider.setSecuredRoute(securedRoute);
-
         return authenticationProvider;
     }
 
