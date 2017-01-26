@@ -17,7 +17,9 @@ public class Auth0Client {
     private Auth0 auth0;
 
     public Auth0Client(String clientid, String domain) {
+    	clientid = System.getenv("AUTH0_CLIENT_ID");
         this.setClientid(clientid);
+        domain = System.getenv("AUTH0_DOMAIN");
         this.setDomain(domain);
 
         this.auth0 = new Auth0(clientid, domain);
