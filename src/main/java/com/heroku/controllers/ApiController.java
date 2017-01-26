@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.auth0.spring.security.auth0.Auth0JWTToken;
+import com.auth0.spring.security.api.Auth0JWTToken;
 import com.heroku.security.Auth0Client;
 
 @Component

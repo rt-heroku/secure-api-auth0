@@ -1,11 +1,12 @@
 package com.heroku.security;
 
+import org.springframework.stereotype.Component;
+
 import com.auth0.Auth0;
 import com.auth0.authentication.AuthenticationAPIClient;
 import com.auth0.authentication.result.UserProfile;
 import com.auth0.request.Request;
-import com.auth0.spring.security.auth0.Auth0JWTToken;
-import org.springframework.stereotype.Component;
+import com.auth0.spring.security.api.Auth0JWTToken;
 
 @Component
 public class Auth0Client {
