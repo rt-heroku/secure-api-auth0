@@ -13,6 +13,7 @@ public class Auth0Client {
 
     private String clientid;
     private String domain;
+    private String clientSecret;
     private AuthenticationAPIClient client;
     private Auth0 auth0;
 
@@ -22,7 +23,9 @@ public class Auth0Client {
         domain = System.getenv("AUTH0_DOMAIN");
         this.setDomain(domain);
 
-        this.auth0 = new Auth0(clientid, domain);
+        this.clientSecret = System.getenv("AUTH0_CLIENT_SECRET");
+        
+        this.auth0 = new Auth0(clientid, this.clientSecret, domain);
         this.client = this.auth0.newAuthenticationAPIClient();
     }
 
@@ -46,6 +49,14 @@ public class Auth0Client {
 
 	public void setDomain(String domain) {
 		this.domain = domain;
+	}
+
+	public String getClientSecret() {
+		return clientSecret;
+	}
+
+	public void setClientSecret(String clientSecret) {
+		this.clientSecret = clientSecret;
 	}
 
 }
