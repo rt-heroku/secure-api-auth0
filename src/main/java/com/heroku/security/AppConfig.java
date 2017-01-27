@@ -36,7 +36,7 @@ public class AppConfig extends Auth0HerokuConfig {
     @Override
     protected void authorizeRequests(final HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers("/","/login").permitAll()
                 .antMatchers(HttpMethod.GET, "/contacts").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                 .antMatchers(HttpMethod.GET, "/product2s").hasAnyAuthority("ROLE_ADMIN")
 //                .antMatchers(HttpMethod.GET, "/api/v1/profiles/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")

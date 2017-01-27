@@ -4,7 +4,9 @@ import org.springframework.stereotype.Component;
 
 import com.auth0.Auth0;
 import com.auth0.authentication.AuthenticationAPIClient;
+import com.auth0.authentication.DatabaseConnectionRequest;
 import com.auth0.authentication.result.Credentials;
+import com.auth0.authentication.result.DatabaseUser;
 import com.auth0.authentication.result.UserProfile;
 import com.auth0.request.Request;
 import com.auth0.spring.security.api.Auth0JWTToken;
@@ -17,7 +19,8 @@ public class Auth0Client {
     private String clientSecret;
     private AuthenticationAPIClient client;
     private Auth0 auth0;
-
+    private Credentials credentials;
+    
     public Auth0Client(String clientid, String domain) {
         this.setClientid(clientid);
         this.setDomain(domain);
@@ -26,8 +29,15 @@ public class Auth0Client {
         this.client = this.auth0.newAuthenticationAPIClient();
     }
 
-    public Credentials login(String username, String password, String connection){
-    	return client.login(username, password).setConnection(connection).execute();
+    public Credentials login(String username, String password){
+    	this.credentials = client.login(username, password).setScope("openid roles").execute();
+    	return this.credentials;
+    }
+
+    public DatabaseUser createUser(String email, String password, String username){
+    	DatabaseConnectionRequest<DatabaseUser> dcr = client.createUser(email, password).addParameter("app-metadata", "{\"roles\": [\"user\",\"ROLE_USER\",\"ROLE_ADMIN\"]}");
+    	DatabaseUser du = dcr.execute();
+    	return du;
     }
     
     public String getUsername(Auth0JWTToken token) {
@@ -58,6 +68,14 @@ public class Auth0Client {
 
 	public void setClientSecret(String clientSecret) {
 		this.clientSecret = clientSecret;
+	}
+
+	public Credentials getCredentials() {
+		return credentials;
+	}
+
+	public void setCredentials(Credentials credentials) {
+		this.credentials = credentials;
 	}
 
 }
