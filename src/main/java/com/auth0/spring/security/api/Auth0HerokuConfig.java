@@ -37,8 +37,8 @@ public class Auth0HerokuConfig extends WebSecurityConfigurerAdapter {
 	@Value("${auth0.domain}")
 	protected String domain;
 
-//	@Value("${auth0.issuer}")
-//	protected String issuer;
+	@Value("${auth0.issuer:https://${auth0.domain}/}")
+	protected String issuer;
 
 	@Value("${auth0.client.id}")
 	protected String clientId;
@@ -49,10 +49,10 @@ public class Auth0HerokuConfig extends WebSecurityConfigurerAdapter {
 	@Value("${auth0.secured.route:}")
 	protected String securedRoute;
 
-	@Value("${auth0.authority.strategy:}")
+	@Value("${auth0.authority.strategy:ROLES}")
 	protected String authorityStrategy;
 
-	@Value("${auth0.base64.encoded.secret:}")
+	@Value("${auth0.base64.encoded.secret:false}")
 	protected boolean base64EncodedSecret;
 
 	@Value("${auth0.signing.algorithm:HS256}")
