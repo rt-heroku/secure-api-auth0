@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
-import com.auth0.spring.security.api.Auth0SecurityConfig;
+import com.auth0.spring.security.api.Auth0HerokuConfig;
 
 
 
@@ -17,14 +17,14 @@ import com.auth0.spring.security.api.Auth0SecurityConfig;
 @EnableWebSecurity(debug = true)
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
-public class AppConfig extends Auth0SecurityConfig {
+public class AppConfig extends Auth0HerokuConfig {
 
     /**
      * Provides Auth0 API access
      */
     @Bean
     public Auth0Client auth0Client() {
-        return new Auth0Client(clientId, issuer);
+        return new Auth0Client(clientId, domain);
     }
 
     /**
