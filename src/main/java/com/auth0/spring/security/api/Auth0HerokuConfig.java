@@ -84,7 +84,7 @@ public class Auth0HerokuConfig extends WebSecurityConfigurerAdapter {
 	public Auth0AuthenticationProvider auth0AuthenticationProvider() {
 		Auth0AuthenticationProvider authenticationProvider = new Auth0AuthenticationProvider();
 		authenticationProvider.setDomain(this.domain);
-		authenticationProvider.setIssuer("https://" + this.domain + "/");
+		authenticationProvider.setIssuer(this.issuer);
 		authenticationProvider.setClientId(this.clientId);
 		authenticationProvider.setClientSecret(this.clientSecret);
 		authenticationProvider.setSecuredRoute(this.securedRoute);
