@@ -1,7 +1,7 @@
 package com.heroku;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.auth0.authentication.result.Credentials;
 import com.heroku.model.ResponseMessage;
-import com.heroku.model.SimpleRecord;
 import com.heroku.security.Auth0Client;
 
 @RestController
@@ -25,12 +24,12 @@ public class AuthController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseMessage doLogin(@RequestParam String username, @RequestParam String password) {
 		Credentials credentials = auth0Client.login(username, password);
-		List<SimpleRecord> cs = new ArrayList<SimpleRecord>();
+		Map<String, String> cs = new HashMap<String, String>();
 
-		cs.add(new SimpleRecord("id_token", credentials.getIdToken()));
-		cs.add(new SimpleRecord("token_type", credentials.getType()));
-		cs.add(new SimpleRecord("access_token", credentials.getAccessToken()));
-		cs.add(new SimpleRecord("refresh_token", credentials.getRefreshToken()));
+		cs.put("id_token", credentials.getIdToken());
+		cs.put("token_type", credentials.getType());
+		cs.put("access_token", credentials.getAccessToken());
+		cs.put("refresh_token", credentials.getRefreshToken());
 
 		ResponseMessage rm = new ResponseMessage("", true, cs);
 		return rm;
