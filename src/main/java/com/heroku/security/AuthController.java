@@ -1,4 +1,4 @@
-package com.heroku;
+package com.heroku.security;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.auth0.authentication.result.Credentials;
-import com.heroku.model.ResponseMessage;
-import com.heroku.security.Auth0Client;
 
 @RestController
 @RequestMapping()
@@ -22,7 +20,7 @@ public class AuthController {
 	private Auth0Client auth0Client;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseMessage doLogin(@RequestParam String username, @RequestParam String password) {
+	public Map<String, String> doLogin(@RequestParam String username, @RequestParam String password) {
 		Credentials credentials = auth0Client.login(username, password);
 		Map<String, String> cs = new HashMap<String, String>();
 
@@ -31,7 +29,6 @@ public class AuthController {
 		cs.put("access_token", credentials.getAccessToken());
 		cs.put("refresh_token", credentials.getRefreshToken());
 
-		ResponseMessage rm = new ResponseMessage("", true, cs);
-		return rm;
+		return cs;
 	}
 }
